@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Categoria implements Serializable{
 	
@@ -26,6 +28,8 @@ public class Categoria implements Serializable{
 	
 	//aqui foi nomeado produtos pois é o nome do papel no diagrama
 	//mapeia em muitos pra muitos nesse caso ele mapeia com o inverso dos produtos
+	//a anotação json quebra a referencia cíclica
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
