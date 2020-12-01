@@ -1,6 +1,9 @@
 package com.cursonc.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,9 @@ public class Categoria implements Serializable{
 	private Integer id;
 	@Column(name="nome")
 	private String nome;
+	
+	//aqui foi nomeado produtos pois é o nome do papel no diagrama
+	private List<Produto> produtos = new ArrayList<>();
 	
 	public Categoria() {}
 
@@ -69,6 +75,8 @@ public class Categoria implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 }
