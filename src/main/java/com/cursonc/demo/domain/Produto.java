@@ -8,14 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Produto implements Serializable{
 	
-	/**
-	 * 
-	 */
 	
+	//mapeia os objetos em muitos pra muitos gerando a outra tabela
+	@ManyToMany
+	@JoinTable(name = "Produto_Categoria",
+			joinColumns=@JoinColumn(name="produto_id"),
+			inverseJoinColumns =@JoinColumn(name="categoria_id")
+			)
 	private List<Categoria> categorias = new ArrayList<>();
 	private static final long serialVersionUID = 1L;
 
@@ -92,6 +99,13 @@ public class Produto implements Serializable{
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+
+	public Produto(Integer id, String nome, Double preço) {
+		super();
+		Id = id;
+		this.nome = nome;
+		this.preço = preço;
 	}
 
 	
