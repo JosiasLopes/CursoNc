@@ -25,6 +25,7 @@ public class Produto implements Serializable{
 			joinColumns=@JoinColumn(name="produto_id"),
 			inverseJoinColumns =@JoinColumn(name="categoria_id")
 			)
+	//o back reference é colocado no objeto que fornece os dados
 	@JsonBackReference
 	private List<Categoria> categorias = new ArrayList<>();
 	private static final long serialVersionUID = 1L;
