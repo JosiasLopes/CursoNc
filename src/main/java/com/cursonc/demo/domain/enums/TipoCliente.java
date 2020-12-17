@@ -4,6 +4,10 @@ public enum TipoCliente {
 	PESSOAFISICA(1,"pessoa fisica"),
 	PESSOAJURIDICA(2,"pessoa juridica");
 
+	//os enums podem ser criados atribuindo valores e strings
+	//para isso é necessario um construtor para passar os valores
+	//os valores de um enum não podemser alterados por em podem ser acessados
+	//atraves de metodos get 
 	private int codigo;
 	private String descricao;
 	
@@ -20,6 +24,8 @@ public enum TipoCliente {
 		this.descricao = descricao;
 	}
 	
+	//criamos um metodo statico para que não seja necessario instanciar 
+	//um novo objeto quando formos buscar
 	public static TipoCliente ToEnum(Integer codigo) {
 		if(codigo==null) {
 			return null;
