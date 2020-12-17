@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cursonc.demo.domain.Categoria;
-import com.cursonc.demo.services.CategoriaService;
+import com.cursonc.demo.domain.Endereco;
+import com.cursonc.demo.services.EnderecoService;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="/enderecos")
 
 //costuma-se usar o plural da 1° parte do nome da classe criada
-public class CategoriaResource {
+public class EnderecoResource {
 
 	@Autowired
-	private CategoriaService catServ;
+	private EnderecoService catServ;
 	//o resouce( camada rest) acessa o serviço
 	//no padrão rest é importante atribuir os metodos
 	//da classe aos metodos de requisição apropriados
@@ -29,7 +29,7 @@ public class CategoriaResource {
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Categoria cat = catServ.buscar(id);
+		Endereco cat = catServ.buscar(id);
 		return ResponseEntity.ok(cat);
 	}
 }

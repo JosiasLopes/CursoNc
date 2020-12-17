@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.cursonc.demo.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente implements Serializable{
@@ -27,9 +28,11 @@ public class Cliente implements Serializable{
 	@Id
 	@GeneratedValue( strategy=GenerationType.IDENTITY )
 	private Integer id;
-	private Integer tipo;
+	private String tipo;
 	
 	//1 cliente possuem 1 ou muitos endereços
+	//libera a serialização
+	@JsonManagedReference
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco>enderecos =  new ArrayList<>();
 	
@@ -46,14 +49,14 @@ public class Cliente implements Serializable{
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.id = id;
-		this.tipo = tipo.getCodigo();
+		this.tipo = tipo.getDescricao();
 	}
 
 	public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCodigo();
+		this.tipo = tipo.getDescricao();
 	}
 
 	public String getNome() {
@@ -88,12 +91,12 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public TipoCliente getTipo() {
-		return TipoCliente.ToEnum(tipo);
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCodigo();
+	public void setTipo(String string) {
+		this.tipo = string;
 	}
 
 	public List<Endereco> getEnderecos() {
@@ -112,30 +115,8 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+	
+	
 	
 	
 	

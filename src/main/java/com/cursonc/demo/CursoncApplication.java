@@ -2,6 +2,8 @@ package com.cursonc.demo;
 
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -72,21 +74,35 @@ public class CursoncApplication implements CommandLineRunner{
 		sp.getCidades().addAll(Arrays.asList(Campinas));
 		mg.getCidades().addAll(Arrays.asList(Bh));
 		
-		Cliente cli1 = new Cliente("Joao","j@gmail.com","22299988844",TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente("Joao","j@gmail.com","22299988844",null,TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("1166775817","11966775542"));
 		
-		Endereco end1 = new Endereco(null,"Rua Flores","Hardim","06755400","11","casa",cli1,Campinas);
-		Endereco end2 = new Endereco(null,"Rua Andaluz","Hardim","06755100","110","casa",cli1,Bh);
+		Cliente cli2 = new Cliente("Armando","j@gmail.com","22299988844",null,TipoCliente.PESSOAFISICA);
+		cli2.getTelefones().addAll(Arrays.asList("1166775817","11966775542"));
+		
+		Endereco end1 = new Endereco(null,"Rua Flores","Hardim","06755400","11","casa",cli2,Campinas);
+		Endereco end2 = new Endereco(null,"Rua Andaluz","Hardim","06755100","110","casa",cli2,Bh);
+		cli2.getEnderecos().addAll(Arrays.asList(end1,end2));
 		cli1.getEnderecos().addAll(Arrays.asList(end1,end2));
 		
+		Cliente cli3 = new Cliente();
+		cli3.setId(3);
+		cli3.setCpfOuCnpj("34567890098");
+		cli3.setEmail("jhjhj");
+		cli3.setNome("jkajsas");
+		cli3.getTelefones().addAll(Arrays.asList("1166775817","11966775542"));
+		cli3.setTipo(TipoCliente.PESSOAFISICA.getDescricao());
 		
 		
+		
+		//JOptionPane.showMessageDialog(null, cli1.getTipo().getDescricao());
 		repo.saveAll(Arrays.asList(cat,cat2));
 		produtoRepo.saveAll(Arrays.asList(p1,p2,p3));
 		estRepo.saveAll(Arrays.asList(sp,mg));
 		citRepo.saveAll(Arrays.asList(Campinas,Bh));
-		clirepo.saveAll(Arrays.asList(cli1));
+		clirepo.saveAll(Arrays.asList(cli1,cli2,cli3));
 		endrepo.saveAll(Arrays.asList(end1,end2));
+		
 		
 		
 	}
