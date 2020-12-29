@@ -2,7 +2,9 @@ package com.cursonc.demo.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -61,7 +64,33 @@ public class Produto implements Serializable{
 	public void setPreço(Double preço) {
 		this.preço = preço;
 	}
+	
+	//O produto tambem conhece os itens pedidos associados a ele
+	//um objeto do tipo set é uma lista onde os itens não se repetem
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItemPedido>itens = new HashSet<>();
 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+	
+	//lembremos que o item pedido tem o id composto tambem pelo id do pedido
+	//forra que essa classe tem o metodo getPedido tambem
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		//pra percorrer uma lista de x tipo 
+		//usamos o contador que nesse caso é do tipo da Lista : a lista
+		//assim fazemos um for que percorre todos os elementos sem excessão
+		for(ItemPedido x : itens ) {
+			lista.add(x.getPedido());
+		}
+		return lista;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,6 +144,8 @@ public class Produto implements Serializable{
 	public Produto() {
 		super();
 	}
+
+	
 	
 	
 
